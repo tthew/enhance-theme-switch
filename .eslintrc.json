@@ -1,0 +1,7 @@
+{
+  "env": {
+    "browser": true,
+    "esnext": true
+  }
+  // "extends": "eslint:recommended"
+}

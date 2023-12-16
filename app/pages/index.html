@@ -19,39 +19,6 @@
     color: var(--text-color);
   }
 
-  .theme-name {
-    display: block;
-    text-decoration: underline;
-  }
-
-  .theme-name.dark {
-    opacity: 0;
-    transform: translate(0px, -100%);
-    transition: transform 0.66s ease-out, opacity 0.66s;
-    margin-left: 25%;
-  }
-
-  .theme-name.light {
-    opacity: 1;
-    transform: translate(0, 0px);
-    transition: transform 0.66s ease-out, opacity 0.66s;
-    margin-left: -50%;
-  }
-
-  body:has(#dark-theme:checked) .theme-name.dark {
-    opacity: 1;
-    z-index: 1;
-    transform: translate(0, 0);
-    margin-left: 25%;
-  }
-
-  body:has(#dark-theme:checked) .theme-name.light {
-    opacity: 0;
-    z-index: 0;
-    transform: translate(0, -100%);
-    margin-left: -50%;
-  }
-
   nav {
     position: absolute;
     top: 0;
@@ -63,17 +30,92 @@
   }
 
   main {
-    display: grid;
-    place-content: center;
-    font-size: 16rem;
+    position: relative;
+    display: flex;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
       sans-serif;
-    font-weight: 600;
   }
 
-  .main_wrapper {
+  .theme-name {
+    position: absolute;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    transition: opacity 1s;
+  }
+
+  .theme-name .theme-name__title {
+    font-size: 16rem;
+    font-weight: 600;
+    text-decoration: underline;
     text-align: center;
+  }
+
+  .theme-name--dark {
+    opacity: 0;
+  }
+
+  .theme-name--dark .theme-name__title {
+    transform: translate(0px, -100%);
+    transition: transform 0.66s ease-out;
+  }
+
+  .theme-name--light {
+    opacity: 1;
+  }
+
+  .theme-name--light .theme-name__title {
+    transform: translate(0, 0px);
+    transition: transform 0.66s ease-out;
+  }
+
+  .theme-name__content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 2rem 0;
+    width: 66%;
+    font-size: 1.5rem;
+    font-weight: 100;
+  }
+
+  .theme-name__content p + p {
+    margin-top: 0.5rem;
+  }
+
+  .theme-name__content strong {
+    font-weight: 400;
+  }
+
+  .theme-name__content ol {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    padding-left: 1.2rem;
+  }
+
+  .theme-name__content ol li {
+    flex-direction: column;
+    row-gap: 0.3rem;
+  }
+
+  body:has(#dark-theme:checked) .theme-name--dark {
+    opacity: 1;
+  }
+
+  body:has(#dark-theme:checked) .theme-name--dark .theme-name__title {
+    z-index: 1;
+    transform: translate(0, 0);
+  }
+
+  body:has(#dark-theme:checked) .theme-name--light {
+    opacity: 0;
+  }
+
+  body:has(#dark-theme:checked) .theme-name--light .theme-name__title {
+    z-index: 0;
+    transform: translate(0, -100%);
   }
 
   .sr-only:not(:focus):not(:active) {
@@ -86,25 +128,78 @@
     width: 1px;
   }
 
-  .content {
-    padding: 2rem 0;
-    width: 50%;
-    text-align: center;
-    font-size: 2rem;
-    font-style: italic;
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 </style>
 
 <nav><theme-switch></theme-switch></nav>
+
 <main>
-  <div class="main_wrapper">
-    <span class="theme-name dark">Dark</span>
-    <span class="theme-name light">Light</span>
+  <div class="theme-name theme-name--dark">
+    <h1 class="theme-name__title">Dark</h1>
+    <div class="theme-name__content">
+      <p><em>adjective</em></p>
+      <ol>
+        <li>
+          <p><strong>Lacking or having very little light.</strong></p>
+
+          <p><em>"a dark corner."</em></p>
+        </li>
+
+        <li>
+          <p><strong>Lacking brightness.</strong></p>
+          <p></p>
+          <p><em>"a dark day."</em></p>
+        </li>
+        <li>
+          <p>
+            <strong
+              >Reflecting only a small fraction of incident light; tending
+              toward black.</strong
+            >
+          </p>
+          <p></p>
+          <p><em>"dark clothing."</em></p>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="theme-name theme-name--light">
+    <h1 class="theme-name__title">Light</h1>
+    <div class="theme-name__content">
+      <p><em>adjective</em></p>
+      <ol>
+        <li>
+          <p><strong>Of relatively little weight; not heavy.</strong></p>
+
+          <p><em>"a light load."</em></p>
+        </li>
+
+        <li>
+          <p>
+            <strong>Of relatively little weight for its size or bulk. </strong>
+          </p>
+          <p></p>
+          <p><em>"Balsa is a light wood." </em></p>
+        </li>
+        <li>
+          <p>
+            <strong
+              >Of less than the correct, standard, or legal weight.
+            </strong>
+          </p>
+          <p></p>
+          <p><em>"a light pound."</em></p>
+        </li>
+      </ol>
+    </div>
   </div>
 </main>
-<div class="content">
-  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus assumenda
-  neque unde molestiae totam ipsam, culpa non adipisci accusamus enim vel dicta
-  dolorum dignissimos praesentium cumque et deleniti nesciunt optio.
-</div>
+
 <script type="module" src="/_public/browser/index.mjs"></script>

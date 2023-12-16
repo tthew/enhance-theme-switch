@@ -19,59 +19,33 @@
     color: var(--text-color);
   }
 
-  body:before,
-  body:after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    content: "";
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    mix-blend-mode: darken;
-    mix-blend-mode: difference;
-    mix-blend-mode: exclusion;
-    mix-blend-mode: multiply;
-  }
-
-  body:before {
-    filter: url(#noiseFilter);
-  }
-
-  body:after {
-    background-size: cover;
-    filter: contrast(100%) brightness(150%);
-  }
-
-  main .dark {
+  .theme-name {
     display: block;
+    text-decoration: underline;
+  }
+
+  .theme-name.dark {
     opacity: 0;
     transform: translate(0px, -100%);
     transition: transform 0.66s ease-out, opacity 0.66s;
     margin-left: 25%;
-    text-decoration: underline;
   }
 
-  main .light {
-    display: block;
+  .theme-name.light {
     opacity: 1;
     transform: translate(0, 0px);
     transition: transform 0.66s ease-out, opacity 0.66s;
-    font-style: none;
-    text-decoration: underline;
     margin-left: -50%;
   }
 
-  body:has(#dark-theme:checked) main .dark {
+  body:has(#dark-theme:checked) .theme-name.dark {
     opacity: 1;
     z-index: 1;
     transform: translate(0, 0);
     margin-left: 25%;
   }
 
-  body:has(#dark-theme:checked) main .light {
+  body:has(#dark-theme:checked) .theme-name.light {
     opacity: 0;
     z-index: 0;
     transform: translate(0, -100%);
@@ -97,7 +71,7 @@
     font-weight: 600;
   }
 
-  .wrapper {
+  .main_wrapper {
     display: flex;
     text-align: center;
   }
@@ -123,9 +97,9 @@
 
 <nav><theme-switch></theme-switch></nav>
 <main>
-  <div class="wrapper">
-    <span class="dark">Dark</span>
-    <span class="light">Light</span>
+  <div class="main_wrapper">
+    <span class="theme-name dark">Dark</span>
+    <span class="theme-name light">Light</span>
   </div>
 </main>
 <div class="content">

@@ -10,10 +10,10 @@ export default function Head() {
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Enhance Starter Project</title>
+      <title>enhance-theme-switch</title>
       ${linkTag()}
       <link rel="icon" href="/_public/favicon.svg">
-      <meta name="description" content="The HTML first full stack web framework.">
+      <meta name="An example of an HTML & CSS first, progressively enhanced approach to global theme styling, with support for darkmode, levaging custom elements & web components built on top of https://enhance.dev">
     </head>
 `;
 }

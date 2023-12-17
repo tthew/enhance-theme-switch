@@ -5,18 +5,13 @@ export default function ThemeSwitch({ html, state }) {
   const checked = state?.attrs?.theme === "dark" ? "checked" : "";
 
   return html`
-    <label class="theme-switch">
+    <label>
       <span class="sr-only">Toggle dark mode</span>
-      <input
-        type="checkbox"
-        name="checkbox"
-        class="theme-switch__input"
-        ${checked}
-      />
+      <input type="checkbox" name="checkbox" ${checked} />
     </label>
 
     <style>
-      .theme-switch {
+      :host label {
         right: 1rem;
         position: absolute;
         display: flex;
@@ -25,11 +20,11 @@ export default function ThemeSwitch({ html, state }) {
         font-size: 2rem;
       }
 
-      .theme-switch::before {
+      :host label::before {
         content: "🌝";
       }
 
-      .theme-switch .theme-switch__input {
+      :host input[type="checkbox"] {
         appearance: none;
         position: relative;
         display: inline-block;
@@ -42,11 +37,11 @@ export default function ThemeSwitch({ html, state }) {
         transition: 0.25s linear;
       }
 
-      .theme-switch .theme-switch__input:checked::before {
+      :host input[type="checkbox"]:checked::before {
         transform: translateX(0.6lh);
       }
 
-      .theme-switch .theme-switch__input::before {
+      :host input[type="checkbox"]::before {
         content: "";
         display: block;
         width: calc(1lh * 0.8);
@@ -64,33 +59,26 @@ export default function ThemeSwitch({ html, state }) {
         transform: translateX(0rem);
       }
 
-      .theme-switch .theme-switch__input::focus {
+      :host input[type="checkbox"]::focus {
         outline-color: transparent;
       }
 
-      .theme-switch input.switch::focus-visible {
+      :host label input.switch::focus-visible {
         outline: 2px solid hsl(--accent-h, --accent-s, --accent-l);
         outline-offset: 2px;
       }
-    </style>
 
-    <style scope="global">
-      body:has(.theme-switch .theme-switch__input:checked)
-        .theme-switch::before {
+      :host label:has(input[type="checkbox"]:checked)::before {
         content: "🌚" !important;
       }
 
-      body:has(.theme-switch .theme-switch__input:checked)
-        .theme-switch
-        .theme-switch__input {
+      :host input[type="checkbox"]:checked {
         background: transparent;
         outline: 1px solid
           hsl(var(--accent-h), var(--accent-s), var(--accent-l));
       }
 
-      body:has(.theme-switch .theme-switch__input:checked)
-        .theme-switch
-        .theme-switch__input::before {
+      :host input[type="checkbox"]:checked::before {
         background: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
       }
     </style>

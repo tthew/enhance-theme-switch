@@ -9,8 +9,8 @@ enhance("theme-switch", {
       "(prefers-color-scheme: dark)"
     );
 
-    el.switchEl = el.querySelector(".theme-switch .theme-switch__input");
-    el.switchEl.addEventListener("change", el.setTheme(el));
+    el.switchEl = el.querySelector("theme-switch input");
+    el.switchEl.addEventListener("change", setTheme.bind(el));
 
     const theme = await window.cookieStore.get("theme");
 
@@ -23,13 +23,12 @@ enhance("theme-switch", {
     }
   },
   disconnected: (el) => {
-    el.switchEl.removeEventListener("change", el.setTheme(el));
-  },
-  setTheme(el) {
-    return (e) => {
-      const theme = e.target.checked ? "dark" : "light";
-      el.setAttribute("theme", theme);
-      document.cookie = `theme=${theme}; path=/`;
-    };
+    el.switchEl.removeEventListener("change", setTheme);
   },
 });
+
+function setTheme(e) {
+  const theme = e.target.checked ? "dark" : "light";
+  this.setAttribute("theme", theme);
+  document.cookie = `theme=${theme}; path=/`;
+}

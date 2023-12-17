@@ -8,7 +8,7 @@ export default function AppNav({ html, state }) {
   </nav>
   
   <style>
-    nav {
+   :host nav {
       position: absolute;
       top: 0;
       left: 0;

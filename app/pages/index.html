@@ -40,6 +40,15 @@
     width: 1px;
   }
 
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: var(--space-1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -125,5 +134,11 @@
     </div>
   </hero-section>
 </main>
+
+<footer>
+  <p>
+    A demo by <a href="https://github.com/tthew/enhance-theme-switch">@tthew</a>
+  </p>
+</footer>
 
 <script type="module" src="/_public/browser/index.mjs"></script>

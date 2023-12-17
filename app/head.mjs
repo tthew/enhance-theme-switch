@@ -13,7 +13,7 @@ export default function Head() {
       <title>enhance-theme-switch</title>
       ${linkTag()}
       <link rel="icon" href="/_public/favicon.svg">
-      <meta name="An example of an HTML & CSS first, progressively enhanced approach to global theme styling, with support for darkmode, levaging custom elements & web components built on top of https://enhance.dev">
+      <meta name="description" content="An example of an HTML & CSS first, progressively enhanced approach to global theme styling, with support for darkmode, levaging custom elements & web components built on top of https://enhance.dev">
     </head>
 `;
 }

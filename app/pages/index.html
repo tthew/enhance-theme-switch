@@ -1,12 +1,17 @@
 <style scope="global">
-  body:not(body:has(#dark-theme:checked)) {
-    --text-color: #222;
-    --bg-color: whitesmoke;
+  :root {
+    --dark: var(--gray-900);
+    --light: whitesmoke;
   }
 
-  body:has(#dark-theme:checked) {
-    --text-color: whitesmoke;
-    --bg-color: #222;
+  body:not(body:has(theme-switch[theme="dark"])) {
+    --fore: var(--dark);
+    --back: var(--light);
+  }
+
+  body:has(theme-switch[theme="dark"]) {
+    --fore: var(--light);
+    --back: var(--dark);
   }
 
   body {
@@ -15,8 +20,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: var(--bg-color);
-    color: var(--text-color);
+    background: var(--back);
+    color: var(--fore);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+      Helvetica Neue, Arial, Noto Sans, sans-serif, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   nav {
@@ -32,8 +41,6 @@
   main {
     position: relative;
     display: flex;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-      sans-serif;
   }
 
   .theme-name {
@@ -46,8 +53,9 @@
   }
 
   .theme-name .theme-name__title {
-    font-size: 16rem;
-    font-weight: 600;
+    font-size: calc(3 * var(--text-5));
+    font-weight: 800;
+    text-wrap: balance;
     text-decoration: underline;
     text-align: center;
   }
@@ -57,7 +65,7 @@
   }
 
   .theme-name--dark .theme-name__title {
-    transform: translate(0px, -100%);
+    transform: translate(0px, -150%);
     transition: transform 0.66s ease-out;
   }
 
@@ -70,52 +78,82 @@
     transition: transform 0.66s ease-out;
   }
 
-  .theme-name__content {
+  .theme-name__definition {
     display: flex;
     flex-direction: column;
-    row-gap: 1rem;
-    padding: 2rem 0;
-    width: 66%;
-    font-size: 1.5rem;
+    row-gap: var(--space-0);
+    padding: var(--space-2) 0;
+    width: 100%;
+    font-size: var(--text-1);
     font-weight: 100;
+    transform: translate(0, 100px);
+    transition: 0.6s ease-out transform;
   }
 
-  .theme-name__content p + p {
-    margin-top: 0.5rem;
+  body:not(body:has(theme-switch[theme="dark"]))
+    .theme-name--light
+    .theme-name__definition {
+    transform: translate(0, 0);
   }
 
-  .theme-name__content strong {
+  body:not(body:has(theme-switch[theme="dark"]))
+    .theme-name--dark
+    .theme-name__definition {
+    transform: translate(0, 100px);
+  }
+
+  body:has(theme-switch[theme="dark"])
+    .theme-name--light
+    .theme-name__definition {
+    transform: translate(0, 100px);
+  }
+
+  body:has(theme-switch[theme="dark"])
+    .theme-name--dark
+    .theme-name__definition {
+    transform: translate(0, 0);
+  }
+
+  .theme-name__definition p + p {
+    margin-top: var(--space--5);
+  }
+
+  .theme-name__definition strong {
     font-weight: 400;
   }
 
-  .theme-name__content ol {
+  .theme-name__definition ol {
     display: flex;
     flex-direction: column;
-    row-gap: 2rem;
-    padding-left: 1.2rem;
+    row-gap: var(--space-1);
+    padding-left: var(--space-0);
   }
 
-  .theme-name__content ol li {
+  .theme-name__definition ol li {
     flex-direction: column;
-    row-gap: 0.3rem;
+    row-gap: var(--space--5);
   }
 
-  body:has(#dark-theme:checked) .theme-name--dark {
+  .theme-name__definition em {
+    font-weight: 200;
+  }
+
+  body:has(theme-switch[theme="dark"]) .theme-name--dark {
     opacity: 1;
   }
 
-  body:has(#dark-theme:checked) .theme-name--dark .theme-name__title {
+  body:has(theme-switch[theme="dark"]) .theme-name--dark .theme-name__title {
     z-index: 1;
     transform: translate(0, 0);
   }
 
-  body:has(#dark-theme:checked) .theme-name--light {
+  body:has(theme-switch[theme="dark"]) .theme-name--light {
     opacity: 0;
   }
 
-  body:has(#dark-theme:checked) .theme-name--light .theme-name__title {
+  body:has(theme-switch[theme="dark"]) .theme-name--light .theme-name__title {
     z-index: 0;
-    transform: translate(0, -100%);
+    transform: translate(0, -150%);
   }
 
   .sr-only:not(:focus):not(:active) {
@@ -138,17 +176,16 @@
   }
 </style>
 
-<nav><theme-switch></theme-switch></nav>
+<app-nav></app-nav>
 
 <main>
-  <div class="theme-name theme-name--dark">
+  <section class="theme-name theme-name--dark">
     <h1 class="theme-name__title">Dark</h1>
-    <div class="theme-name__content">
+    <div class="theme-name__definition">
       <p><em>adjective</em></p>
       <ol>
         <li>
           <p><strong>Lacking or having very little light.</strong></p>
-
           <p><em>"a dark corner."</em></p>
         </li>
 
@@ -169,10 +206,11 @@
         </li>
       </ol>
     </div>
-  </div>
-  <div class="theme-name theme-name--light">
+  </section>
+
+  <section class="theme-name theme-name--light">
     <h1 class="theme-name__title">Light</h1>
-    <div class="theme-name__content">
+    <div class="theme-name__definition">
       <p><em>adjective</em></p>
       <ol>
         <li>
@@ -199,7 +237,7 @@
         </li>
       </ol>
     </div>
-  </div>
+  </section>
 </main>
 
 <script type="module" src="/_public/browser/index.mjs"></script>

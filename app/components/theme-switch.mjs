@@ -3,13 +3,14 @@ import ThemeSwitch from "../elements/theme-switch.mjs";
 
 enhance("theme-switch", {
   render: ThemeSwitch,
+  attrs: ["theme"],
   connected: async (el) => {
     const { matches: prefersDarkmode } = window.matchMedia(
       "(prefers-color-scheme: dark)"
     );
 
-    el.switchEl = el.querySelector(".switch");
-    el.switchEl.addEventListener("change", el.setTheme);
+    el.switchEl = el.querySelector(".theme-switch .theme-switch__input");
+    el.switchEl.addEventListener("change", el.setTheme(el));
 
     const theme = await window.cookieStore.get("theme");
 
@@ -22,10 +23,13 @@ enhance("theme-switch", {
     }
   },
   disconnected: (el) => {
-    el.switchEl.removeEventListener("change", el.setTheme);
+    el.switchEl.removeEventListener("change", el.setTheme(el));
   },
-  setTheme(e) {
-    const theme = e.target.checked ? "dark" : "light";
-    document.cookie = `theme=${theme}; path=/`;
+  setTheme(el) {
+    return (e) => {
+      const theme = e.target.checked ? "dark" : "light";
+      el.setAttribute("theme", theme);
+      document.cookie = `theme=${theme}; path=/`;
+    };
   },
 });

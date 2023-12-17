@@ -22,30 +22,18 @@ export default function HeroSection({ html }) {
         transition: opacity 1s;
       }
 
-      :host > section ::slotted([slot="heading"]) {
+      :host ::slotted([slot="heading"]),
+      :host ::slotted([slot="content"]) {
+        transition: 0.6s ease-out opacity, 0.6s ease-out transform;
+      }
+
+      :host ::slotted([slot="heading"]) {
         font-size: calc(3 * var(--text-5));
         font-weight: 800;
         text-wrap: balance;
         text-decoration: underline;
         text-align: center;
-      }
-
-      :host[data-theme="dark"] {
-        opacity: 0;
-      }
-
-      :host[data-theme="dark"] ::slotted([slot="heading"]) {
         transform: translate(0px, -150%);
-        transition: transform 0.66s ease-out;
-      }
-
-      :host[data-theme="light"] {
-        opacity: 1;
-      }
-
-      :host[data-theme="light"] ::slotted([slot="heading"]) {
-        transform: translate(0, 0px);
-        transition: transform 0.66s ease-out;
       }
 
       :host ::slotted([slot="content"]) {
@@ -57,7 +45,54 @@ export default function HeroSection({ html }) {
         font-size: var(--text-1);
         font-weight: 100;
         transform: translate(0, 100px);
-        transition: 0.6s ease-out transform;
+        transition: 0.6s ease-out transform, 0.6s ease-out opacity;
+      }
+
+      body:has(theme-switch input:checked)
+        :host[data-theme="dark"]
+        ::slotted([slot="content"]),
+      body:has(theme-switch input:checked)
+        :host[data-theme="dark"]
+        ::slotted([slot="heading"]) {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      body:not(body:has(theme-switch input:checked))
+        :host[data-theme="dark"]
+        ::slotted([slot="content"]),
+      body:not(body:has(theme-switch input:checked))
+        :host[data-theme="dark"]
+        ::slotted([slot="heading"]) {
+        opacity: 0;
+      }
+
+      body:has(theme-switch input:checked)
+        :host[data-theme="light"]
+        ::slotted([slot="content"]),
+      body:has(theme-switch input:checked)
+        :host[data-theme="light"]
+        ::slotted([slot="heading"]) {
+        opacity: 0;
+      }
+
+      body:not(body:has(theme-switch input:checked))
+        :host[data-theme="light"]
+        ::slotted([slot="content"]),
+      body:not(body:has(theme-switch input:checked))
+        :host[data-theme="light"]
+        ::slotted([slot="heading"]) {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      body:has(theme-switch input:checked)
+        :host[data-theme="light"]
+        ::slotted([slot="content"]),
+      body:not(body:has(theme-switch input:checked))
+        :host[data-theme="dark"]
+        ::slotted([slot="content"]) {
+        transition: none;
       }
 
       :host ::slotted([slot="content"]) p + p {
@@ -82,56 +117,6 @@ export default function HeroSection({ html }) {
 
       :host ::slotted([slot="content"]) em {
         font-weight: 200;
-      }
-
-      body:has(theme-switch input:checked) :host[data-theme="dark"] {
-        opacity: 1;
-      }
-
-      body:has(theme-switch input:checked) :host[data-theme="light"] {
-        opacity: 0;
-      }
-
-      body:not(body:has(theme-switch input:checked))
-        :host[data-theme="light"]
-        ::slotted([slot="content"]) {
-        transform: translate(0, 0);
-      }
-
-      body:not(body:has(theme-switch input:checked))
-        :host[data-theme="dark"]
-        ::slotted([slot="content"]) {
-        transform: translate(0, 100px);
-      }
-
-      body:has(theme-switch input:checked)
-        :host[data-theme="light"]
-        ::slotted([slot="content"]) {
-        transform: translate(0, 100px);
-      }
-
-      body:has(theme-switch input:checked)
-        :host[data-theme="dark"]
-        ::slotted([slot="content"]) {
-        transform: translate(0, 0);
-      }
-
-      body:has(theme-switch input:checked)
-        :host[data-theme="dark"]
-        ::slotted([slot="heading"]) {
-        z-index: 1;
-        transform: translate(0, 0);
-      }
-
-      body:has(theme-switch input:checked) :host[data-theme="light"] {
-        opacity: 0;
-      }
-
-      body:has(theme-switch input:checked)
-        :host[data-theme="light"]
-        ::slotted([slot="heading"]) {
-        z-index: 0;
-        transform: translate(0, -150%);
       }
     </style>`;
 }

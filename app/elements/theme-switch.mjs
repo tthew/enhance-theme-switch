@@ -69,7 +69,7 @@ export default function ThemeSwitch({ html, state }) {
       }
 
       :host label:has(input[type="checkbox"]:checked)::before {
-        content: "🌚" !important;
+        content: "🌚";
       }
 
       :host input[type="checkbox"]:checked {

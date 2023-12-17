@@ -4,12 +4,14 @@
     --light: whitesmoke;
   }
 
-  body:not(body:has(theme-switch[theme="dark"])) {
+  body:not(body:has(theme-switch[theme="dark"])),
+  body:not(body:has(theme-switch input:checked)) {
     --fore: var(--dark);
     --back: var(--light);
   }
 
-  body:has(theme-switch[theme="dark"]) {
+  body:has(theme-switch[theme="dark"]),
+  body:has(theme-switch input:checked) {
     --fore: var(--light);
     --back: var(--dark);
   }
@@ -26,134 +28,6 @@
       Helvetica Neue, Arial, Noto Sans, sans-serif, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
-  }
-
-  main {
-    position: relative;
-    display: flex;
-  }
-
-  .theme-name {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform: translate(-50%, -50%);
-    transition: opacity 1s;
-  }
-
-  .theme-name .theme-name__title {
-    font-size: calc(3 * var(--text-5));
-    font-weight: 800;
-    text-wrap: balance;
-    text-decoration: underline;
-    text-align: center;
-  }
-
-  .theme-name--dark {
-    opacity: 0;
-  }
-
-  .theme-name--dark .theme-name__title {
-    transform: translate(0px, -150%);
-    transition: transform 0.66s ease-out;
-  }
-
-  .theme-name--light {
-    opacity: 1;
-  }
-
-  .theme-name--light .theme-name__title {
-    transform: translate(0, 0px);
-    transition: transform 0.66s ease-out;
-  }
-
-  .theme-name__definition {
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--space-0);
-    padding: var(--space-2) 0;
-    width: 100%;
-    font-size: var(--text-1);
-    font-weight: 100;
-    transform: translate(0, 100px);
-    transition: 0.6s ease-out transform;
-  }
-
-  body:not(body:has(theme-switch[theme="dark"]))
-    .theme-name--light
-    .theme-name__definition {
-    transform: translate(0, 0);
-  }
-
-  body:not(body:has(theme-switch[theme="dark"]))
-    .theme-name--dark
-    .theme-name__definition {
-    transform: translate(0, 100px);
-  }
-
-  body:has(theme-switch[theme="dark"])
-    .theme-name--light
-    .theme-name__definition {
-    transform: translate(0, 100px);
-  }
-
-  body:has(theme-switch[theme="dark"])
-    .theme-name--dark
-    .theme-name__definition {
-    transform: translate(0, 0);
-  }
-
-  .theme-name__definition p + p {
-    margin-top: var(--space--5);
-  }
-
-  .theme-name__definition strong {
-    font-weight: 400;
-  }
-
-  .theme-name__definition ol {
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--space-1);
-    padding-left: var(--space-0);
-  }
-
-  .theme-name__definition ol li {
-    flex-direction: column;
-    row-gap: var(--space--5);
-  }
-
-  .theme-name__definition em {
-    font-weight: 200;
-  }
-
-  body:has(theme-switch[theme="dark"]) .theme-name--dark {
-    opacity: 1;
-  }
-
-  body:has(theme-switch[theme="dark"]) .theme-name--dark .theme-name__title {
-    z-index: 1;
-    transform: translate(0, 0);
-  }
-
-  body:has(theme-switch[theme="dark"]) .theme-name--light {
-    opacity: 0;
-  }
-
-  body:has(theme-switch[theme="dark"]) .theme-name--light .theme-name__title {
-    z-index: 0;
-    transform: translate(0, -150%);
   }
 
   .sr-only:not(:focus):not(:active) {
@@ -179,38 +53,50 @@
 <app-nav></app-nav>
 
 <main>
-  <section class="theme-name theme-name--dark">
-    <h1 class="theme-name__title">Dark</h1>
-    <div class="theme-name__definition">
-      <p><em>adjective</em></p>
+  <hero-section data-theme="dark">
+    <h1 slot="heading">Dark</h1>
+    <div slot="content">
+      <p>
+        <em>adjective</em>
+      </p>
       <ol>
         <li>
-          <p><strong>Lacking or having very little light.</strong></p>
-          <p><em>"a dark corner."</em></p>
+          <p>
+            <strong>Lacking or having very little light.</strong>
+          </p>
+          <p>
+            <em>"a dark corner."</em>
+          </p>
         </li>
 
         <li>
-          <p><strong>Lacking brightness.</strong></p>
+          <p>
+            <strong>Lacking brightness.</strong>
+          </p>
           <p></p>
-          <p><em>"a dark day."</em></p>
+          <p>
+            <em>"a dark day."</em>
+          </p>
         </li>
         <li>
           <p>
-            <strong
-              >Reflecting only a small fraction of incident light; tending
-              toward black.</strong
-            >
+            <strong>
+              Reflecting only a small fraction of incident light; tending toward
+              black.
+            </strong>
           </p>
           <p></p>
-          <p><em>"dark clothing."</em></p>
+          <p>
+            <em>"dark clothing."</em>
+          </p>
         </li>
       </ol>
     </div>
-  </section>
+  </hero-section>
 
-  <section class="theme-name theme-name--light">
-    <h1 class="theme-name__title">Light</h1>
-    <div class="theme-name__definition">
+  <hero-section data-theme="light">
+    <h1 slot="heading">Light</h1>
+    <div slot="content">
       <p><em>adjective</em></p>
       <ol>
         <li>
@@ -237,7 +123,7 @@
         </li>
       </ol>
     </div>
-  </section>
+  </hero-section>
 </main>
 
 <script type="module" src="/_public/browser/index.mjs"></script>
